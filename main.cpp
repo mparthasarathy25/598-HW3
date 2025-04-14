@@ -41,6 +41,8 @@ double G;
 
 Planet* next(Planet* planets) {
    Planet* nextplanets = (Planet*)malloc(sizeof(Planet) * nplanets);
+
+   #pragma omp parallel for schedule(auto)
    for (int i=0; i<nplanets; i++) {
       nextplanets[i].vx = planets[i].vx;
       nextplanets[i].vy = planets[i].vy;
@@ -49,6 +51,7 @@ Planet* next(Planet* planets) {
       nextplanets[i].y = planets[i].y;
    }
 
+   #pragma omp parallel for schedule(auto)
    for (int i=0; i<nplanets; i++) {
       for (int j=0; j<nplanets; j++) {
          double dx = planets[j].x - planets[i].x;
