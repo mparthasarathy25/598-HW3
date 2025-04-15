@@ -18,14 +18,25 @@ make clean
 
 The three inputs to run are:
 ```bash
-./main.exe 1000 5000
-./main.exe 5 1000000000
-./main.exe 1000 100000
+perf record -g ./main.exe 1000 5000
+perf record -g ./main.exe 5 1000000000
+perf record -g ./main.exe 1000 100000
 ```
+
+Commits to check out if interested:
+* Final Commit - https://github.com/mparthasarathy25/598-HW3
+* Parallelism Commit - https://github.com/mparthasarathy25/598-HW3/tree/d10b1e2c82b686a8b06ff4b65c229eeeba39dd0e
+* Local Variables - https://github.com/mparthasarathy25/598-HW3/tree/4d175c60b2b937f2218d1d402c901826279d1063
+* Aligned Alloc Attempt Commit - https://github.com/mparthasarathy25/598-HW3/tree/a1f4bd79452eb2c0f80b59124c15be6e8a3009af
+* MakeFile Flags Attempt Commit - https://github.com/mparthasarathy25/598-HW3/tree/b92f41ab9705f52b95e7f5ac8538c1450afe98ae
+* Sqrt Attempt Commit - https://github.com/mparthasarathy25/598-HW3/tree/d06a8bd5eddfed4597e68bf0b5895ec309215e24
+
 
 This program assumes the following are installed on your machine:
 * A working C compiler (g++ is assumed in the Makefile)
 * make
+* perf
+* C++17 for aligned_alloc
 
 The nbody program is a classic physics simulation whose exact results are unable to be solved for exactly through integration.
 
