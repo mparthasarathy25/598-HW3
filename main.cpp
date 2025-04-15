@@ -3,7 +3,7 @@
 #include<math.h>
 #include <string.h>
 #include <sys/time.h>
-
+#include <omp.h>
 
 float tdiff(struct timeval *start, struct timeval *end) {
   return (end->tv_sec-start->tv_sec) + 1e-6*(end->tv_usec-start->tv_usec);
@@ -42,10 +42,13 @@ double G;
 
 Planet* next(Planet* planets) {
    Planet* nextplanets = (Planet*)malloc(sizeof(Planet) * nplanets);
+
+   #pragma omp parallel for schedule(auto)
    for (int i=0; i<nplanets; i++) {
       memcpy(&nextplanets[i], &planets[i], sizeof(Planet));
    }
 
+   #pragma omp parallel for schedule(auto)
    for (int i=0; i<nplanets; i++) {
       double vx = nextplanets[i].vx;
       double vy = nextplanets[i].vy;
