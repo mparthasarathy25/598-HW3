@@ -41,7 +41,7 @@ double dt;
 double G;
 
 Planet* next(Planet* planets) {
-   Planet* nextplanets = (Planet*)malloc(sizeof(Planet) * nplanets);
+   Planet* nextplanets = (Planet*)aligned_alloc(64, sizeof(Planet) * nplanets);
 
    #pragma omp parallel for schedule(auto)
    for (int i=0; i<nplanets; i++) {
