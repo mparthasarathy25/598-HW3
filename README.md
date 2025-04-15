@@ -16,6 +16,13 @@ To clean existing build artifacts run:
 make clean
 ```
 
+The three inputs to run are:
+```bash
+./main.exe 1000 5000
+./main.exe 5 1000000000
+./main.exe 1000 100000
+```
+
 This program assumes the following are installed on your machine:
 * A working C compiler (g++ is assumed in the Makefile)
 * make
