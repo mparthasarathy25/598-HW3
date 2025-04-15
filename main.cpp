@@ -35,7 +35,6 @@ double randomDouble()
    return ((next << 27) + next2) / (double)(1LL << 53);
 }
 
-
 int nplanets;
 int timesteps;
 double dt;
