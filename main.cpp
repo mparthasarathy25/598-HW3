@@ -1,8 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
-
+#include <string.h>
 #include <sys/time.h>
+
 
 float tdiff(struct timeval *start, struct timeval *end) {
   return (end->tv_sec-start->tv_sec) + 1e-6*(end->tv_usec-start->tv_usec);
@@ -40,18 +41,11 @@ double dt;
 double G;
 
 Planet* next(Planet* planets) {
-   Planet* nextplanets = (Planet*)aligned_alloc(64, sizeof(Planet) * nplanets);
-
-   #pragma omp parallel for schedule(auto)
+   Planet* nextplanets = (Planet*)malloc(sizeof(Planet) * nplanets);
    for (int i=0; i<nplanets; i++) {
-      nextplanets[i].vx = planets[i].vx;
-      nextplanets[i].vy = planets[i].vy;
-      nextplanets[i].mass = planets[i].mass;
-      nextplanets[i].x = planets[i].x;
-      nextplanets[i].y = planets[i].y;
+      memcpy(&nextplanets[i], &planets[i], sizeof(Planet));
    }
 
-   #pragma omp parallel for schedule(auto)
    for (int i=0; i<nplanets; i++) {
       double vx = nextplanets[i].vx;
       double vy = nextplanets[i].vy;
