@@ -4,7 +4,6 @@
 #include <string.h>
 #include <sys/time.h>
 #include <omp.h>
-#include <x86intrin.h>
 
 float tdiff(struct timeval *start, struct timeval *end) {
   return (end->tv_sec-start->tv_sec) + 1e-6*(end->tv_usec-start->tv_usec);
@@ -36,18 +35,6 @@ double randomDouble()
    return ((next << 27) + next2) / (double)(1LL << 53);
 }
 
-double sqrtasm(double n)
-{
-   double result;
-   __asm__ volatile (
-       "fldl %1\n\t"
-       "fsqrt\n\t"
-       "fstpl %0"
-       : "=m" (result)
-       : "m" (n)
-   );
-   return result;
-}
 
 int nplanets;
 int timesteps;
@@ -70,7 +57,7 @@ Planet* next(Planet* planets) {
          double dx = planets[j].x - planets[i].x;
          double dy = planets[j].y - planets[i].y;
          double distSqr = dx*dx + dy*dy + 0.0001;
-         double invDist = planets[i].mass * planets[j].mass / sqrtasm(distSqr);
+         double invDist = planets[i].mass * planets[j].mass / sqrt(distSqr);
          double invDist3 = invDist * invDist * invDist;
          vx += dt * dx * invDist3;
          vy += dt * dy * invDist3;
